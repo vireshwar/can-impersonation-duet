@@ -6,6 +6,10 @@ MCP_CAN CAN(SPI_CS_PIN);
 
 #include "duet.h"
 
+int lastTEC = 0;
+bool enableRAID = true;
+unsigned long txID;
+
 void setup() {
   commonSetup();
   for (int i=0;i<2;i++)  CAN.init_Mask(i, 0, 0x3ff);
@@ -21,7 +25,6 @@ void setup() {
   startCleanTimer();
 }
 
-int lastTEC = 0;
 
 void loop() { 
   
@@ -55,7 +58,14 @@ void loop() {
       if (shouldWakeup(victim_nextWakeupAtOverflows[i],
                 victim_nextWakeupAtCounter[i])){
         setWakeupTimer((uint64_t)(victim_periods[i]*1000), &(victim_nextWakeupAtOverflows[i]), &(victim_nextWakeupAtCounter[i]), false);
-        sendInAnyBuf(victim_IDs[i], victimMsg);
+        if (trainingPhase && enableRAID) {
+          txID=padID(victim_IDs[i]);
+          sendInAnyBuf(txID, victimMsg, 1);
+        }
+        else {
+          txID=victim_IDs[i];
+          sendInAnyBuf(txID, victimMsg, 0);
+        }
         lastTEC = victimTEC;
         victimTEC = readTEC();
       }

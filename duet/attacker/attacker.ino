@@ -4,7 +4,7 @@
 const int SPI_CS_PIN = 9;
 MCP_CAN CAN(SPI_CS_PIN); 
 
-#include "duet-config.h"
+#include "duet.h"
 
 int tecList[10] = {0,0,0,0,0,0,0,0,0,0};
 long tecIDList[10] = {0,0,0,0,0,0,0,0,0,0};

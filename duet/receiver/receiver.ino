@@ -11,11 +11,11 @@ unsigned char len;
 unsigned char buf[8];
 const int Nlen=100;
 unsigned char str[Nlen];
-int str_id[Nlen];
-int tec[Nlen];
-int rec[Nlen];
-int count_str=0;
-int count_loop=0;
+unsigned long str_id[Nlen];
+unsigned int tec[Nlen];
+unsigned int rec[Nlen];
+unsigned int count_str=0;
+unsigned int count_loop=0;
 
 void setup()
 {
@@ -36,9 +36,9 @@ void loop()
   while(CAN_MSGAVAIL == CAN.checkReceive()){
     CAN.readMsgBuf(&len, buf);    // read data,  len: data length, buf: data buf 
     str_id[count_str]=CAN.getCanId();
-    
     str[count_str]=buf[len-1]; 
-    tec[count_str]=readTEC();
+    
+    tec[count_str]= readTEC();
     rec[count_str]=readREC();
     count_str=count_str+1;
     if(count_str>Nlen-1) {
@@ -50,7 +50,7 @@ void loop()
         Serial.print(stringCount);  
         Serial.print("\t ID:0x");     
         String stringID =  String(str_id[i], HEX);
-        while (stringID.length()<3) stringID = "0" + stringID; 
+//        while (stringID.length()<3) stringID = "0" + stringID; 
         Serial.print(stringID);    
         Serial.print("\t DATA:0x");
         Serial.print(str[i], HEX);

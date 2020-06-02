@@ -15,7 +15,7 @@ const int phaseChangeToTestID = 513;
 const int phaseChangeToTrainID = 512;
 const unsigned char phaseChangeMsg[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
-const bool trainPhase=false; // Set this for Duet Exp
+const bool trainPhase=true; // Set this for Duet Exp
 
 void setup()
 {
