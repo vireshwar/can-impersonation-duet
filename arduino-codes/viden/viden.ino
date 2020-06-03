@@ -5,6 +5,7 @@
 const int SPI_CS_PIN = 9;
 MCP_CAN CAN(SPI_CS_PIN);                                    // Set CS pin
 
+// Connect Analog pins to CAN-H and CAN-L
 
 // Setting paramters for sampling
 #define spi_readwrite SPI.transfer // pSPI->transfer
@@ -19,15 +20,12 @@ MCP_CAN CAN(SPI_CS_PIN);                                    // Set CS pin
 ///// Constant values ////
 #define freq 16 //MHz
 #define overflowTime (65536/freq) //us, 2^16/freq
-#define period 10000 //us //periodicity
 
-const int timeMargin = 1000; // margin for sampling periodic message
 const int accompliceID = 1;
 const int attackerID = 11;
 const int victimID = 21;
 const int numIDs=3;
 const int allID[numIDs] = {accompliceID,attackerID,victimID};
-//const int allID[numIDs] = {0x015};
 
 const int NsampData = 50;
 const uint64_t waitFilterTime =   200000LL; // 200 milliseconds
@@ -35,7 +33,6 @@ const uint64_t waitFilterTime =   200000LL; // 200 milliseconds
 const bool printInfo = true;
 
 //////// Variables ///////
-uint64_t timeNow = 0;
 volatile unsigned long overflows = 0;
 int countH = 0;
 int countL = 0;
@@ -94,37 +91,6 @@ void loop() {
       }
     }
   }
-  
-//  startCleanTimer();
-//  while(getElapsedTime()<phaseChangeTime) {
-//    for (int i=0; i<numIDs; i++){
-//      videnMaskAndFilter(allID[i]);
-//      timeNow = getElapsedTime();
-//      while(getElapsedTime()-timeNow<trainTime) {    
-//          if(CAN_MSGAVAIL == CAN.checkReceive()) videnSampling(!printInfo);   
-//      }
-//    }
-//  }
-//
-//  Serial.println("Test Phase");
-//  
-//  videnMaskAndFilter(victimID);
-//
-//  Serial.println("No Attack");
-//  timeNow = getElapsedTime();
-//  while(getElapsedTime()-timeNow<timeTestVictim){
-//  if(CAN_MSGAVAIL == CAN.checkReceive()) videnSampling(false);   
-//  }
-//  
-//  int res = CAN.sendMsgBuf(phaseChangeToTest, 0, 8, phaseChangeMsg, false);
-//  delay(100);
-//  Serial.println("Masquerade Attack");
-//  trainingPhase=false;
-//  while(1){
-//  if(CAN_MSGAVAIL == CAN.checkReceive()) videnSampling(false);   
-//  }   
-
-  
 }
 
 
