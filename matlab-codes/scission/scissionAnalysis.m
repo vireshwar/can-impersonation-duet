@@ -1,9 +1,9 @@
 clear;
 clc;
 close all;
-addpath('../Experiment/');
-addpath('../Sampling/');
-addpath('../Learning/');
+addpath('../experiment/');
+addpath('../sampling/');
+addpath('../learning/');
 
 %% Parameters
 scissionFeatures=[39,48,8,7,33,1,47,41,36,45,37,43,44,20,21,28,29,19];
@@ -14,7 +14,6 @@ featureSet=0; % 0-full, 1-scission, 2-adaptive
  
 carExp=0; % 0 for testbed, 11 Cruze-Bus-1, 12 Cruze-Bus-2, 21 Impala-Bus
 corruption=1; % 0 for no corruption, 1 for corruption
-ideaExp='Duet';
 
 Fsampling = [12.5E6];
 adjustFCR = 0; % Adjust frame corruption rate
@@ -43,8 +42,8 @@ for countExpIter=1:length(expIter)
                     %% Load train data 
                     trainingPhase=1;
                     corruptByte=corruptByteLimitTrain(countCLTrain);
-                    folderNameTrain=expGetFolderName(carExp,FsampKS,iterationCount,corruption,trainingPhase,corruptByte,ideaExp);
-                    featureFile=strcat(folderNameTrain,'scission_featureData.mat');
+                    folderNameTrain=expGetFolderName(carExp,FsampKS,iterationCount,corruption,trainingPhase,corruptByte);
+                    featureFile=strcat(folderNameTrain,'scissionFeatureData.mat');
                     load(featureFile); % loads responseVar and predictorVar 
                     responseVictimLoad=responseVar; %
                     predictorVictimLoad=predictorVar;
@@ -106,8 +105,8 @@ for countExpIter=1:length(expIter)
                                 %% Load test data
                                 trainingPhase=0;
                                 corruptByte=corruptByteLimitTest(countCLTest);
-                                folderNameTest=expGetFolderName(carExp,FsampKS,iterationCount,corruption,trainingPhase,corruptByte,ideaExp);
-                                featureFileAttacker=strcat(folderNameTest,'scission_featureData.mat');
+                                folderNameTest=expGetFolderName(carExp,FsampKS,iterationCount,corruption,trainingPhase,corruptByte);
+                                featureFileAttacker=strcat(folderNameTest,'scissionFeatureData.mat');
                                 load(featureFileAttacker); % loads responseVar and predictorVar
                                 responseAttackerLoad=responseVar; %
                                 predictorAttackerLoad=predictorVar;                                

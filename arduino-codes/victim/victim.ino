@@ -7,7 +7,7 @@ MCP_CAN CAN(SPI_CS_PIN);
 #include "duet.h"
 
 int lastTEC = 0;
-bool enableRAID = true;
+bool enableRAID = false;
 unsigned long txID;
 
 void setup() {

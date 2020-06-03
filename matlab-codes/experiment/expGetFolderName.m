@@ -1,16 +1,10 @@
-function folderName=expGetFolderName(carExp,FsampKS,iterationCount,corruption,trainingPhase,corruptByte,ideaExp)
+function folderName=expGetFolderName(carExp,FsampKS,iterationCount,corruption,trainingPhase,corruptByte)
 
-folderName0=strcat('../../data_stored/voltage_data/');
+folderName1=strcat('../recorded-data/');
 
-
-if(strcmp(ideaExp,'Duet'))
-    folderName1=strcat('Duet/');
-elseif(strcmp(ideaExp,'Nmap'))
-    folderName1=strcat('Nmap/');
-end
 
 if(carExp==0)
-    folderName2='Testbed/';
+    folderName2='testbed/';
 elseif(carExp==11)
     folderName2='Cruze-Bus-1/';
 elseif(carExp==12)
@@ -20,18 +14,18 @@ elseif(carExp==21)
 elseif(carExp==22)
     folderName2='Impala-Bus-2/';      
 end
-folderName3=strcat('FsampKS_',num2str(FsampKS),'/iteration', num2str(iterationCount),'/');
+folderName3=strcat('sampling-',num2str(FsampKS),'-KS','/iteration', num2str(iterationCount),'/');
 
 if(trainingPhase)
-    folderName4='train_';
+    folderName4='train-';
 else
-    folderName4='test_';          
+    folderName4='test-';          
 end 
 
 if(corruption)
-    folderName5=strcat(num2str(corruptByte),'_byte_Corruption/');
+    folderName5=strcat(num2str(corruptByte),'-byte-Corruption/');
 else
     folderName5='benign/';
 end
 
-folderName=strcat(folderName0,folderName1,folderName2,folderName3,folderName4,folderName5);
+folderName=strcat(folderName1,folderName2,folderName3,folderName4,folderName5);

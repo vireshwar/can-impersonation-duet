@@ -3,9 +3,9 @@ clc;
 clear;
 close all;
 
-addpath('../Experiment/');
-addpath('../Sampling/');
-addpath('../Plot/');
+addpath('../experiment/');
+addpath('../sampling/');
+addpath('../plot/');
 
 % Other parameters
 recessiveFrameMaxVal=0.5;
@@ -28,8 +28,7 @@ featuresNames={'mean-g00','std-g00','var-g00','skew-g00','kurt-g00','rms-g00','m
 carExp=0;
 iterationCount=1; 
 corruption=1;
-trainingPhase=0;
-ideaExp='Duet';
+trainingPhase=1;
 [victimID,attackerID,victimECU,attackerECU,accompECU,busSpeed,voltMult] = expInfo(carExp,iterationCount,trainingPhase);
 
 dataHL=true;
@@ -49,7 +48,7 @@ for countIDLen=1:length(idLength)
             NsampDetectMargin=floor(NsampSym/5);
             NsampInterFrame=8*NsampSym;
 
-            folderName=expGetFolderName(carExp,FsampKS,iterationCount,corruption,trainingPhase,corruptRate,ideaExp);
+            folderName=expGetFolderName(carExp,FsampKS,iterationCount,corruption,trainingPhase,corruptRate);
 
             acquisitionError=0;
             formatError=0;
@@ -164,7 +163,7 @@ for countIDLen=1:length(idLength)
                 title('Scission Features');
             end
 
-            featureFile=strcat(folderName,'scission_featureData.mat');            
+            featureFile=strcat(folderName,'scissionFeatureData.mat');            
             save(featureFile,'frameIDVar','responseVar','predictorVar');
 
             acquisitionError
