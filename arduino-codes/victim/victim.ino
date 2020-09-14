@@ -5,9 +5,10 @@ const int SPI_CS_PIN = 9;
 MCP_CAN CAN(SPI_CS_PIN); 
 
 #include "duet.h"
+#include "raid.h"
 
 int lastTEC = 0;
-bool enableRAID = false;
+bool enableRAID = true;
 unsigned long txID;
 
 void setup() {
